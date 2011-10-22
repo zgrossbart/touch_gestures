@@ -30,6 +30,7 @@ function Gesture() {
     this.paths = [];
     this.pathsDrawn = [];
     this.index = 0;
+    this.longPath;
     
     this.create = function(/*array*/ paths, /*Point*/ textPoint, /*String*/ name) {
         this.paths = paths;
@@ -41,8 +42,15 @@ function Gesture() {
             this.pathsDrawn[i].strokeCap = 'round';
             this.pathsDrawn[i].dashArray = [8, 10];
             
+            console.log('this.paths[i].getPointAt(0): ' + this.paths[i].getPointAt(0));
             this.starts.push(createDot(this.paths[i].getPointAt(0)));
+            
+            if (this.longPath == null || this.longPath.length < this.paths[i].length) {
+                this.longPath = this.paths[i];
+            }
         }
+        
+        console.log('this.longPath.length(): ' + this.longPath.length);
         
         this.text = new PointText(textPoint);
         this.text.content = name;
@@ -57,20 +65,24 @@ function Gesture() {
     this.bump = function() {
         this.index += 4;
         
-        if (this.index < this.paths[0].length) {
+        if (this.index < this.longPath.length) {
             for (var i = 0; i < this.paths.length; i++) {
-                this.pathsDrawn[i].add(this.paths[i].getPointAt(this.index));
-                this.starts[i].position = this.paths[i].getPointAt(this.index);
+                if (i < this.paths[i].length) {
+                    this.pathsDrawn[i].add(this.paths[i].getPointAt(this.index));
+                    this.starts[i].position = this.paths[i].getPointAt(this.index);
+                }
             }
-        } else {
+        } /*else {
             for (var i = 0; i < this.paths.length; i++) {
-                this.starts[i].position = this.paths[i].getPointAt(this.paths[0].length - 1);
+                if (i < this.paths[i].length) {
+                    this.starts[i].position = this.paths[i].getPointAt(this.paths[0].length - 1);
+                }
             }
             
-            this.index = this.paths[0].length;
-        }
+            this.index = this.longPath.length;
+        }*/
         
-        if (this.index === this.paths[0].length && this.text.opacity < 1) {
+        if (this.index >= this.longPath.length && this.text.opacity < 1) {
             this.text.opacity = 1;
         }
     }
@@ -170,6 +182,95 @@ function rotate() {
     return g;
 }
 
+function alien() {
+    var paths = [];
+    
+    var path = new Path();
+    path.add(new Point(100, 100));
+    path.add(new Point(100, 100));
+    paths.push(path);
+    
+    path = new Path();
+    path.add(new Point(150, 50));
+    path.add(new Point(150, 50));
+    paths.push(path);
+    
+    path = new Path();
+    path.add(new Point(200, 100));
+    path.add(new Point(200, 100));
+    paths.push(path);
+    
+    path = new Path();
+    var firstPoint = new Point(50, 200);
+    path.add(firstPoint);
+    
+    var throughPoint = new Point(150, 225);
+    var toPoint = new Point(250, 200);
+    path.arcTo(throughPoint, toPoint);
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(125, 150), "Alien");
+    
+    return g;
+}
+
+function happy() {
+    var paths = [];
+    
+    var path = new Path();
+    path.add(new Point(100, 100));
+    path.add(new Point(100, 100));
+    paths.push(path);
+    
+    path = new Path();
+    path.add(new Point(200, 100));
+    path.add(new Point(200, 100));
+    paths.push(path);
+    
+    path = new Path();
+    var firstPoint = new Point(50, 200);
+    path.add(firstPoint);
+    
+    var throughPoint = new Point(150, 225);
+    var toPoint = new Point(250, 200);
+    path.arcTo(throughPoint, toPoint);
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(125, 150), "Happy");
+    
+    return g;
+}
+
+function sad() {
+    var paths = [];
+    
+    var path = new Path();
+    path.add(new Point(100, 100));
+    path.add(new Point(100, 100));
+    paths.push(path);
+    
+    path = new Path();
+    path.add(new Point(200, 100));
+    path.add(new Point(200, 100));
+    paths.push(path);
+    
+    path = new Path();
+    var firstPoint = new Point(50, 200);
+    path.add(firstPoint);
+    
+    var throughPoint = new Point(150, 175);
+    var toPoint = new Point(250, 200);
+    path.arcTo(throughPoint, toPoint);
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(125, 150), "Sad");
+    
+    return g;
+}
+
 /**
  * This function helps us with debugging.  We can stop and start
  * the animation whenever the user clicks the mouse.
@@ -183,7 +284,7 @@ function onMouseUp(event) {
  */
 function init() {
     
-    gesture = rotate();
+    gesture = sad();
 }
 
 /**
