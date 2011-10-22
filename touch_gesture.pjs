@@ -59,6 +59,7 @@ function Gesture() {
             fillColor: 'red',
             font: 'sans'
         };
+        this.text.paragraphStyle.justification = 'center';
         this.text.opacity = 0;
     }
     
@@ -67,7 +68,7 @@ function Gesture() {
         
         if (this.index < this.longPath.length) {
             for (var i = 0; i < this.paths.length; i++) {
-                if (i < this.paths[i].length) {
+                if (this.index < this.paths[i].length) {
                     this.pathsDrawn[i].add(this.paths[i].getPointAt(this.index));
                     this.starts[i].position = this.paths[i].getPointAt(this.index);
                 }
@@ -150,7 +151,7 @@ function scroll() {
     paths.push(path);
     
     var g = new Gesture();
-    g.create(paths, new Point(125, 150), "Scroll");
+    g.create(paths, new Point(150, 150), "Scroll");
     
     return g;
 }
@@ -177,7 +178,7 @@ function rotate() {
     paths.push(path);
     
     var g = new Gesture();
-    g.create(paths, new Point(125, 150), "Rotate");
+    g.create(paths, new Point(150, 150), "Rotate");
     
     return g;
 }
@@ -210,7 +211,7 @@ function alien() {
     paths.push(path);
     
     var g = new Gesture();
-    g.create(paths, new Point(125, 150), "Alien");
+    g.create(paths, new Point(150, 150), "Alien");
     
     return g;
 }
@@ -238,7 +239,7 @@ function happy() {
     paths.push(path);
     
     var g = new Gesture();
-    g.create(paths, new Point(125, 150), "Happy");
+    g.create(paths, new Point(150, 150), "Happy");
     
     return g;
 }
@@ -266,7 +267,100 @@ function sad() {
     paths.push(path);
     
     var g = new Gesture();
-    g.create(paths, new Point(125, 150), "Sad");
+    g.create(paths, new Point(150, 150), "Sad");
+    
+    return g;
+}
+
+function infinity() {
+    var paths = [];
+    
+    var path = new Path();
+    var firstPoint = new Point(50, 150);
+    path.add(firstPoint);
+    
+    var throughPoint = new Point(100, 100);
+    var toPoint = new Point(150, 150);
+    path.arcTo(throughPoint, toPoint);
+    
+    
+    firstPoint = toPoint;
+    path.add(firstPoint);
+    
+    throughPoint = new Point(200, 200);
+    toPoint = new Point(250, 150);
+    path.arcTo(throughPoint, toPoint);
+    
+    
+    firstPoint = toPoint;
+    path.add(firstPoint);
+    
+    throughPoint = new Point(200, 100);
+    toPoint = new Point(150, 150);
+    path.arcTo(throughPoint, toPoint);
+    
+    
+    firstPoint = toPoint;
+    path.add(firstPoint);
+    
+    throughPoint = new Point(100, 200);
+    toPoint = new Point(50, 150);
+    path.arcTo(throughPoint, toPoint);
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(150, 50), "Infinity");
+    
+    return g;
+}
+
+function glasses() {
+    var paths = [];
+    
+    var path = new Path();
+    var firstPoint = new Point(50, 150);
+    path.add(firstPoint);
+    
+    var throughPoint = new Point(100, 100);
+    var toPoint = new Point(150, 150);
+    path.arcTo(throughPoint, toPoint);
+    
+    
+    firstPoint = toPoint;
+    path.add(firstPoint);
+    
+    throughPoint = new Point(200, 200);
+    toPoint = new Point(250, 150);
+    path.arcTo(throughPoint, toPoint);
+    
+    
+    firstPoint = toPoint;
+    path.add(firstPoint);
+    
+    throughPoint = new Point(200, 100);
+    toPoint = new Point(150, 150);
+    path.arcTo(throughPoint, toPoint);
+    
+    
+    firstPoint = toPoint;
+    path.add(firstPoint);
+    
+    throughPoint = new Point(100, 200);
+    toPoint = new Point(50, 150);
+    path.arcTo(throughPoint, toPoint);
+    paths.push(path);
+    
+    path = new Path();
+    var firstPoint = new Point(50, 250);
+    path.add(firstPoint);
+    
+    var throughPoint = new Point(150, 275);
+    var toPoint = new Point(250, 250);
+    path.arcTo(throughPoint, toPoint);
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(150, 50), "Glasses");
     
     return g;
 }
@@ -284,7 +378,7 @@ function onMouseUp(event) {
  */
 function init() {
     
-    gesture = sad();
+    gesture = glasses();
 }
 
 /**
