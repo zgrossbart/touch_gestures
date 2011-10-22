@@ -1,0 +1,114 @@
+body {
+    background: #fff;
+    color: #000;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: "ff-basic-gothic-web-pro", Verdana,Arial,Sans-serif;
+}
+
+a, a:link, a:visited {
+    color: #acdd33;
+}
+
+#canvas {
+    background: #F8F8F8;
+    border: thin solid #E9E9E9;
+    border-radius: 12px;
+}
+
+#nocanvas {
+    background: none repeat scroll 0 0 #FFFFE0;
+    border-color: #E6DB55;
+    border-radius: 6px 6px 6px 6px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 14px;
+    line-height: 28px;
+    margin: 25px auto;
+    padding: 1em;
+    width: 450px;
+    text-align: center;
+}
+
+#container {
+    position: relative;
+    width: 800px;
+}
+
+#expl {
+    position: absolute;
+    top: 5px;
+    right: 25px;
+    width: 150px;
+    color: #fff3c9;
+}
+
+#attribution {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+}
+
+#editContainer {
+    position: relative;
+    display: none;
+}
+
+#run {
+    position: absolute;
+    top: 15px;
+    right: 50px;
+    z-index: 50;
+}
+
+#editContainer {
+    height: 100%;
+    width: 90%;
+}
+
+.fullscreen {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 95%;
+    margin: 0;
+    padding: 0;
+    border: 0px solid #BBBBBB;
+    border: thin solid lightgray;
+}
+
+#editContainer h2 {
+    left: 0;
+    position: absolute;
+    top: -35px;
+}
+
+#poweredBy {
+    font-size: 14px;
+    position: absolute;
+    right: 5px;
+    top: -25px;
+}
+
+#poweredBy a, #poweredBy a:link, #poweredBy a:visited {
+    color: blue;
+}
+
+.weak {
+    font-weight: normal;
+    font-size: 0.85em;
+    color: gray;
+    font-size: 14px;
+    margin-left: 0.5em;
+}
+
+#err {
+    background-color: #FFFFE0;
+    border: thin solid #E6DB55;
+    display: none;
+    height: 75px;
+    overflow: auto;
+    padding: 10px;
+}

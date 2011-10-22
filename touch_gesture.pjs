@@ -1,0 +1,121 @@
+/******************************************************************************* 
+ * 
+ * Copyright 2011 Zack Grossbart 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ ******************************************************************************/
+
+var touchStart;
+
+var scale = 0;
+var direction = true;
+var started = false;
+var count = 0;
+
+var gesture;
+
+function Gesture() {
+    this.starts = [];
+    this.ends = [];
+    this.paths = [];
+    this.pathsDrawn = [];
+    this.index = 0;
+    
+    this.create = function(/*array*/ paths) {
+        this.paths = paths;
+        
+        for (var i = 0; i < this.paths.length; i++) {
+            this.pathsDrawn.push(new Path());
+            this.pathsDrawn[i].strokeColor = '#ff0000';
+            this.pathsDrawn[i].strokeWidth = 5;
+            this.pathsDrawn[i].strokeCap = 'round';
+            this.pathsDrawn[i].dashArray = [8, 10];
+            
+            this.starts.push(createDot(this.paths[i].getPointAt(0)));
+        }
+    }
+    
+    this.bump = function() {
+        this.index += 4;
+        
+        if (this.index < this.paths[0].length) {
+            for (var i = 0; i < this.paths.length; i++) {
+                this.pathsDrawn[i].add(this.paths[i].getPointAt(this.index));
+                this.starts[i].position = this.paths[i].getPointAt(this.index);
+            }
+        } else {
+            for (var i = 0; i < this.paths.length; i++) {
+                this.starts[i].position = this.paths[i].getPointAt(this.paths[0].length - 1);
+            }
+            
+            this.index = this.paths[0].length;
+        }
+    }
+}
+
+function createDot(/*Point*/ point) {
+    var dot = new Path.Circle(point, 10);
+    dot.fillColor = 'lightgray';
+    //dot.opacity = 0.5;
+    dot.strokeColor = 'gray';
+    dot.strokeWidth = 2;
+    
+    return dot;
+}
+
+function pinch() {
+    var paths = [];
+    
+    var myPath = new Path();
+    myPath.add(new Point(275, 25));
+    myPath.add(new Point(150, 150));
+    paths.push(myPath);
+    
+    myPath = new Path();
+    myPath.add(new Point(25, 275));
+    myPath.add(new Point(150, 150));
+    paths.push(myPath);
+    
+    var g = new Gesture();
+    g.create(paths);
+    
+    return g;
+}
+
+/**
+ * This function helps us with debugging.  We can stop and start
+ * the animation whenever the user clicks the mouse.
+ */
+function onMouseUp(event) {
+    started = !started;
+}
+
+/**
+ * This function initializes our script.
+ */
+function init() {
+    
+    gesture = pinch();
+}
+
+/**
+ * This function is called with each frame of the animation.
+ */
+function onFrame(event) {
+    if (started) {
+        gesture.bump(); 
+    } 
+}
+
+init();
