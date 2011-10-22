@@ -22,7 +22,6 @@ var scale = 0;
 var direction = true;
 var started = false;
 var count = 0;
-
 var gesture;
 
 function Gesture() {
@@ -32,7 +31,7 @@ function Gesture() {
     this.pathsDrawn = [];
     this.index = 0;
     
-    this.create = function(/*array*/ paths) {
+    this.create = function(/*array*/ paths, /*Point*/ textPoint, /*String*/ name) {
         this.paths = paths;
         
         for (var i = 0; i < this.paths.length; i++) {
@@ -44,6 +43,15 @@ function Gesture() {
             
             this.starts.push(createDot(this.paths[i].getPointAt(0)));
         }
+        
+        this.text = new PointText(textPoint);
+        this.text.content = name;
+        this.text.characterStyle =  {
+            fontSize: 18,
+            fillColor: 'red',
+            font: 'sans'
+        };
+        this.text.opacity = 0;
     }
     
     this.bump = function() {
@@ -61,6 +69,10 @@ function Gesture() {
             
             this.index = this.paths[0].length;
         }
+        
+        if (this.index === this.paths[0].length && this.text.opacity < 1) {
+            this.text.opacity = 1;
+        }
     }
 }
 
@@ -77,18 +89,83 @@ function createDot(/*Point*/ point) {
 function pinch() {
     var paths = [];
     
-    var myPath = new Path();
-    myPath.add(new Point(275, 25));
-    myPath.add(new Point(150, 150));
-    paths.push(myPath);
+    var path = new Path();
+    path.add(new Point(275, 25));
+    path.add(new Point(150, 150));
+    paths.push(path);
     
-    myPath = new Path();
-    myPath.add(new Point(25, 275));
-    myPath.add(new Point(150, 150));
-    paths.push(myPath);
+    path = new Path();
+    path.add(new Point(25, 275));
+    path.add(new Point(150, 150));
+    paths.push(path);
     
     var g = new Gesture();
-    g.create(paths);
+    g.create(paths, 50, "Pinch");
+    
+    return g;
+}
+
+function zoom() {
+    var paths = [];
+    
+    var path = new Path();
+    path.add(new Point(150, 150));
+    path.add(new Point(275, 25));
+    paths.push(path);
+    
+    path = new Path();
+    path.add(new Point(150, 150));
+    path.add(new Point(25, 275));
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, 50, "Zoom");
+    
+    return g;
+}
+
+function scroll() {
+    var paths = [];
+    
+    var path = new Path();
+    path.add(new Point(50, 50));
+    path.add(new Point(50, 250));
+    paths.push(path);
+    
+    path = new Path();
+    path.add(new Point(250, 50));
+    path.add(new Point(250, 250));
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(125, 150), "Scroll");
+    
+    return g;
+}
+
+function rotate() {
+    var paths = [];
+    
+    var path = new Path();
+    var firstPoint = new Point(150, 50);
+    path.add(firstPoint);
+    
+    var throughPoint = new Point(225, 75);
+    var toPoint = new Point(250, 150);
+    path.arcTo(throughPoint, toPoint);
+    paths.push(path);
+    
+    path = new Path();
+    var firstPoint = new Point(150, 250);
+    path.add(firstPoint);
+    
+    var throughPoint = new Point(75, 225);
+    var toPoint = new Point(50, 150);
+    path.arcTo(throughPoint, toPoint);
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(125, 150), "Rotate");
     
     return g;
 }
@@ -106,7 +183,7 @@ function onMouseUp(event) {
  */
 function init() {
     
-    gesture = pinch();
+    gesture = rotate();
 }
 
 /**
