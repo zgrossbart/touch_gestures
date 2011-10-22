@@ -507,6 +507,32 @@ function love() {
     return g;
 }
 
+function snake() {
+    var paths = [];
+    
+    var path = new Path();
+    var firstPoint = new Point(150, 50);
+    path.add(firstPoint);
+    
+    var throughPoint = new Point(100, 100);
+    var toPoint = new Point(150, 150);
+    path.arcTo(throughPoint, toPoint);
+    
+    
+    firstPoint = toPoint;
+    path.add(firstPoint);
+    
+    throughPoint = new Point(200, 200);
+    toPoint = new Point(150, 250);
+    path.arcTo(throughPoint, toPoint);
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(150, 100), "Snake");
+    
+    return g;
+}
+
 /**
  * This function helps us with debugging.  We can stop and start
  * the animation whenever the user clicks the mouse.
@@ -520,7 +546,7 @@ function onMouseUp(event) {
  */
 function init() {
     
-    gesture = love();
+    gesture = snake();
 }
 
 /**
