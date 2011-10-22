@@ -488,7 +488,7 @@ function love() {
     firstPoint = new Point(150, 75);
     path.add(firstPoint);
     
-    throughPoint = new Point(220, 25);
+    throughPoint = new Point(180, 25);
     toPoint = new Point(250, 125);
     path.arcTo(throughPoint, toPoint);
     
@@ -546,7 +546,7 @@ function onMouseUp(event) {
  */
 function init() {
     
-    gesture = snake();
+    gesture = love();
 }
 
 /**
