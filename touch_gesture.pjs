@@ -73,15 +73,7 @@ function Gesture() {
                     this.starts[i].position = this.paths[i].getPointAt(this.index);
                 }
             }
-        } /*else {
-            for (var i = 0; i < this.paths.length; i++) {
-                if (i < this.paths[i].length) {
-                    this.starts[i].position = this.paths[i].getPointAt(this.paths[0].length - 1);
-                }
-            }
-            
-            this.index = this.longPath.length;
-        }*/
+        } 
         
         if (this.index >= this.longPath.length && this.text.opacity < 1) {
             this.text.opacity = 1;
@@ -114,6 +106,29 @@ function pinch() {
     
     var g = new Gesture();
     g.create(paths, 50, "Pinch");
+    
+    return g;
+}
+
+function square() {
+    var paths = [];
+    
+    var path = new Path();
+    path.add(new Point(150, 50));
+    path.add(new Point(50, 50));
+    path.add(new Point(50, 250));
+    path.add(new Point(150, 250));
+    paths.push(path);
+    
+    var path = new Path();
+    path.add(new Point(150, 50));
+    path.add(new Point(250, 50));
+    path.add(new Point(250, 250));
+    path.add(new Point(150, 250));
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(150, 150), "You Are Square");
     
     return g;
 }
@@ -314,6 +329,88 @@ function infinity() {
     return g;
 }
 
+function swan() {
+    var paths = [];
+    
+    var path = new Path();
+    var firstPoint = new Point(50, 50);
+    path.add(firstPoint);
+    
+    var throughPoint = new Point(75, 25);
+    var toPoint = new Point(100, 50);
+    path.arcTo(throughPoint, toPoint);
+    
+    
+    firstPoint = toPoint;
+    path.add(firstPoint);
+    
+    throughPoint = new Point(125, 25);
+    toPoint = new Point(150, 50);
+    path.arcTo(throughPoint, toPoint);
+    
+    
+    firstPoint = toPoint;
+    path.add(firstPoint);
+    
+    throughPoint = new Point(175, 25);
+    toPoint = new Point(200, 50);
+    path.arcTo(throughPoint, toPoint);
+    
+    path.add(new Point(225, 250));
+    
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(100, 150), "Swan Dive");
+    
+    return g;
+}
+
+function jump() {
+    var paths = [];
+    
+    var path = new Path();
+    var firstPoint = new Point(50, 50);
+    path.add(firstPoint);
+    
+    var throughPoint = new Point(75, 25);
+    var toPoint = new Point(100, 50);
+    path.arcTo(throughPoint, toPoint);
+    
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(100, 150), "Jump");
+    
+    return g;
+}
+
+function doubleJump() {
+    var paths = [];
+    
+    var path = new Path();
+    var firstPoint = new Point(50, 50);
+    path.add(firstPoint);
+    
+    var throughPoint = new Point(75, 25);
+    var toPoint = new Point(100, 50);
+    path.arcTo(throughPoint, toPoint);
+    
+    firstPoint = toPoint;
+    path.add(firstPoint);
+    
+    throughPoint = new Point(125, 25);
+    toPoint = new Point(150, 50);
+    path.arcTo(throughPoint, toPoint);
+    
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(100, 150), "Double Jump");
+    
+    return g;
+}
+
 function glasses() {
     var paths = [];
     
@@ -365,6 +462,51 @@ function glasses() {
     return g;
 }
 
+function love() {
+    var paths = [];
+    
+    var path = new Path();
+    var firstPoint = new Point(150, 75);
+    path.add(firstPoint);
+    
+    var throughPoint = new Point(120, 25);
+    var toPoint = new Point(50, 125);
+    path.arcTo(throughPoint, toPoint);
+    
+    
+    firstPoint = toPoint;
+    path.add(firstPoint);
+    
+    throughPoint = new Point(125, 200);
+    toPoint = new Point(150, 250);
+    path.arcTo(throughPoint, toPoint);
+    paths.push(path);
+    
+    
+    
+    path = new Path();
+    firstPoint = new Point(150, 75);
+    path.add(firstPoint);
+    
+    throughPoint = new Point(220, 25);
+    toPoint = new Point(250, 125);
+    path.arcTo(throughPoint, toPoint);
+    
+    
+    firstPoint = toPoint;
+    path.add(firstPoint);
+    
+    throughPoint = new Point(175, 200);
+    toPoint = new Point(150, 250);
+    path.arcTo(throughPoint, toPoint);
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(150, 100), "Love");
+    
+    return g;
+}
+
 /**
  * This function helps us with debugging.  We can stop and start
  * the animation whenever the user clicks the mouse.
@@ -378,7 +520,7 @@ function onMouseUp(event) {
  */
 function init() {
     
-    gesture = glasses();
+    gesture = love();
 }
 
 /**
