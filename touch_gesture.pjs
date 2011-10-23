@@ -691,6 +691,8 @@ function onMouseUp(event) {
  * This function initializes our script.
  */
 function init() {
+    $('#container').css('height', ($(window).height() - 70) + 'px');
+    
     var i = 1;
     gestures.push(swipe(''));
     gestures.push(zoom(i++));
@@ -704,8 +706,8 @@ function init() {
     gestures.push(square(i++));
     gestures.push(hugs(i++));
     gestures.push(love(i++));
-    gestures.push(snake(i++));
     gestures.push(vulcan(i++));
+    gestures.push(snake(i++));
     gestures.push(infinity(i++));
     gestures.push(glasses(i++));
     gestures.push(jump(i++));
