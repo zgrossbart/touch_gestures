@@ -32,6 +32,7 @@ function Gesture() {
     this.pathsDrawn = [];
     this.index = 0;
     this.longPath;
+    this.hasPlayed = false;
     
     this.create = function(/*array*/ paths, /*Point*/ textPoint, /*String*/ name) {
         this.paths = paths;
@@ -63,19 +64,23 @@ function Gesture() {
     }
     
     this.draw = function() {
-        for (var i = 0; i < this.paths.length; i++) {
-            this.starts[i].opacity = 1;
+        if (!this.hasPlayed) {
+            this.hasPlayed = true;
+            for (var i = 0; i < this.paths.length; i++) {
+                this.starts[i].opacity = 1;
+            }
+        } else {
+            this.replay();
         }
     }
     
     this.hide = function() {
         for (var i = 0; i < this.paths.length; i++) {
-            this.starts[i].remove();
-            this.pathsDrawn[i].remove();
-            this.paths[i].remove();
+            this.starts[i].opacity = 0;
+            this.pathsDrawn[i].visible = false;
         }
         
-        this.text.remove();
+        this.text.opacity = 0;
     }
     
     this.replay = function() {
@@ -88,6 +93,7 @@ function Gesture() {
             this.pathsDrawn[i].strokeCap = 'round';
             this.pathsDrawn[i].dashArray = [8, 10];
             
+            this.starts[i].opacity = 1;
             this.starts[i].position = this.paths[i].getPointAt(0);
             
             this.pathsDrawn[i].moveBelow(this.starts[i]);
@@ -647,6 +653,11 @@ function init() {
         next();
     });
     
+    $('#back').click(function(evt) {
+        evt.preventDefault();
+        back();
+    });
+    
     $('#replay').click(function(evt) {
         evt.preventDefault();
         gesture.replay();
@@ -661,6 +672,18 @@ function next() {
     if (gIndex < gestures.length) {
         gesture = gestures[gIndex];
         gesture.draw();
+        started = true;
+    }
+    
+}
+
+function back() {
+    gesture.hide();
+    gIndex--;
+    
+    if (gIndex >= 0) {
+        gesture = gestures[gIndex];
+        gesture.replay();
         started = true;
     }
     
