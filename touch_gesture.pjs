@@ -56,7 +56,7 @@ function Gesture(/*int*/ num) {
         this.text.content = name;
         this.text.characterStyle =  {
             fontSize: 18,
-            fillColor: 'red',
+            fillColor: 'black',
             font: 'ff-basic-gothic-web-pro, Verdana, sans'
         };
         this.text.paragraphStyle.justification = 'center';
