@@ -586,7 +586,7 @@ function doubleJump(/*int*/ num) {
     paths.push(path);
     
     var g = new Gesture(num);
-    g.create(paths, new Point(100, 150), "Double Jump");
+    g.create(paths, new Point(100, 150), "Bounce");
     
     return g;
 }
