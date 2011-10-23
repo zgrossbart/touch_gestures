@@ -47,12 +47,11 @@ a:hover {
 #container {
     position: relative;
     width: 400px;
-    margin: 0 auto;
+    margin: -10px auto;
     border-right: thin solid lightgray;
     border-left: thin solid lightgray;
     padding: 25px;
     background: white;
-    top: -10px;
 }
 
 #expl {
@@ -137,6 +136,7 @@ a:hover {
     position: relative;
     width: 300px;
     left: 50px;
+    margin-bottom: 28px;
 }
 
 #replay {

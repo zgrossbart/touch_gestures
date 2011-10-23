@@ -691,7 +691,11 @@ function onMouseUp(event) {
  * This function initializes our script.
  */
 function init() {
-    $('#container').css('height', ($(window).height() - 70) + 'px');
+    $('#container').css('height', ($(window).height() - 50) + 'px');
+    
+    $(window).resize(function() {
+        $('#container').css('height', ($(window).height() - 50) + 'px');
+    });
     
     var i = 1;
     gestures.push(swipe(''));
