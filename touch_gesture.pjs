@@ -22,11 +22,12 @@ var scale = 0;
 var direction = true;
 var started = false;
 var count = 0;
+var gestures = [];
 var gesture;
+var gIndex = 0;
 
 function Gesture() {
     this.starts = [];
-    this.ends = [];
     this.paths = [];
     this.pathsDrawn = [];
     this.index = 0;
@@ -42,15 +43,13 @@ function Gesture() {
             this.pathsDrawn[i].strokeCap = 'round';
             this.pathsDrawn[i].dashArray = [8, 10];
             
-            console.log('this.paths[i].getPointAt(0): ' + this.paths[i].getPointAt(0));
             this.starts.push(createDot(this.paths[i].getPointAt(0)));
+            this.starts[i].opacity = 0;
             
             if (this.longPath == null || this.longPath.length < this.paths[i].length) {
                 this.longPath = this.paths[i];
             }
         }
-        
-        console.log('this.longPath.length(): ' + this.longPath.length);
         
         this.text = new PointText(textPoint);
         this.text.content = name;
@@ -61,6 +60,41 @@ function Gesture() {
         };
         this.text.paragraphStyle.justification = 'center';
         this.text.opacity = 0;
+    }
+    
+    this.draw = function() {
+        for (var i = 0; i < this.paths.length; i++) {
+            this.starts[i].opacity = 1;
+        }
+    }
+    
+    this.hide = function() {
+        for (var i = 0; i < this.paths.length; i++) {
+            this.starts[i].remove();
+            this.pathsDrawn[i].remove();
+            this.paths[i].remove();
+        }
+        
+        this.text.remove();
+    }
+    
+    this.replay = function() {
+        for (var i = 0; i < this.paths.length; i++) {
+            this.pathsDrawn[i].remove();
+            
+            this.pathsDrawn[i] = new Path();
+            this.pathsDrawn[i].strokeColor = '#ff0000';
+            this.pathsDrawn[i].strokeWidth = 5;
+            this.pathsDrawn[i].strokeCap = 'round';
+            this.pathsDrawn[i].dashArray = [8, 10];
+            
+            this.starts[i].position = this.paths[i].getPointAt(0);
+            
+            this.pathsDrawn[i].moveBelow(this.starts[i]);
+        }
+        
+        this.text.opacity = 0;
+        this.index = 0;
     }
     
     this.bump = function() {
@@ -106,6 +140,20 @@ function pinch() {
     
     var g = new Gesture();
     g.create(paths, 50, "Pinch");
+    
+    return g;
+}
+
+function swipe() {
+    var paths = [];
+    
+    var path = new Path();
+    path.add(new Point(250, 50));
+    path.add(new Point(50, 50));
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(150, 150), "Swipe");
     
     return g;
 }
@@ -255,6 +303,34 @@ function happy() {
     
     var g = new Gesture();
     g.create(paths, new Point(150, 150), "Happy");
+    
+    return g;
+}
+
+function wink() {
+    var paths = [];
+    
+    var path = new Path();
+    path.add(new Point(100, 100));
+    path.add(new Point(100, 100));
+    paths.push(path);
+    
+    path = new Path();
+    path.add(new Point(200, 100));
+    path.add(new Point(250, 100));
+    paths.push(path);
+    
+    path = new Path();
+    var firstPoint = new Point(50, 200);
+    path.add(firstPoint);
+    
+    var throughPoint = new Point(150, 225);
+    var toPoint = new Point(250, 200);
+    path.arcTo(throughPoint, toPoint);
+    paths.push(path);
+    
+    var g = new Gesture();
+    g.create(paths, new Point(150, 150), "Wink");
     
     return g;
 }
@@ -545,8 +621,49 @@ function onMouseUp(event) {
  * This function initializes our script.
  */
 function init() {
+    gestures.push(swipe());
+    gestures.push(zoom());
+    gestures.push(pinch());
+    gestures.push(scroll());
+    gestures.push(rotate());
+    gestures.push(snake());
+    gestures.push(happy());
+    gestures.push(sad());
+    gestures.push(wink());
+    gestures.push(alien());
+    gestures.push(square());
+    gestures.push(love());
+    gestures.push(infinity());
+    gestures.push(glasses());
+    gestures.push(jump());
+    gestures.push(doubleJump());
+    gestures.push(swan());
     
-    gesture = love();
+    gesture = gestures[0];
+    gesture.draw();
+    
+    $('#next').click(function(evt) {
+        evt.preventDefault();
+        next();
+    });
+    
+    $('#replay').click(function(evt) {
+        evt.preventDefault();
+        gesture.replay();
+        started = true;
+    });
+}
+
+function next() {
+    gesture.hide();
+    gIndex++;
+    
+    if (gIndex < gestures.length) {
+        gesture = gestures[gIndex];
+        gesture.draw();
+        started = true;
+    }
+    
 }
 
 /**
