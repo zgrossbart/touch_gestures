@@ -57,7 +57,7 @@ function Gesture(/*int*/ num) {
         this.text.characterStyle =  {
             fontSize: 18,
             fillColor: 'red',
-            font: 'sans'
+            font: 'ff-basic-gothic-web-pro, Verdana, sans'
         };
         this.text.paragraphStyle.justification = 'center';
         this.text.visible = false;
@@ -68,7 +68,7 @@ function Gesture(/*int*/ num) {
         this.num.characterStyle =  {
             fontSize: 18,
             fillColor: 'black',
-            font: 'sans'
+            font: 'ff-basic-gothic-web-pro, Verdana, sans'
         };
         this.num.visible = false;
     }
@@ -167,8 +167,8 @@ function vulcan(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
-    path.add(new Point(100, 75));
-    path.add(new Point(25, 75));
+    path.add(new Point(100, 100));
+    path.add(new Point(25, 100));
     paths.push(path);
     
     path = new Path();
@@ -177,13 +177,13 @@ function vulcan(/*int*/ num) {
     paths.push(path);
     
     path = new Path();
-    path.add(new Point(200, 75));
-    path.add(new Point(275, 75));
+    path.add(new Point(200, 175));
+    path.add(new Point(275, 175));
     paths.push(path);
     
     var path = new Path();
-    path.add(new Point(160, 75));
-    path.add(new Point(235, 75));
+    path.add(new Point(160, 100));
+    path.add(new Point(235, 100));
     paths.push(path);
     
     var g = new Gesture(num);
@@ -289,7 +289,7 @@ function rotate(/*int*/ num) {
     paths.push(path);
     
     var g = new Gesture(num);
-    g.create(paths, new Point(150, 150), "Rotate");
+    g.create(paths, new Point(150, 150), "Turn");
     
     return g;
 }
