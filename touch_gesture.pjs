@@ -355,6 +355,28 @@ function happy(/*int*/ num) {
     return g;
 }
 
+function hugs(/*int*/ num) {
+    var paths = [];
+    
+    var path = new Path();
+    path.add(new Point(25, 50));
+    path.add(new Point(125, 250));
+    paths.push(path);
+    
+    path = new Path();
+    path.add(new Point(125, 50));
+    path.add(new Point(25, 250));
+    paths.push(path);
+    
+    path = new Path.Circle(new Point(200, 150), 75);
+    paths.push(path);
+    
+    var g = new Gesture(num);
+    g.create(paths, new Point(150, 25), "Hugs and Kisses");
+    
+    return g;
+}
+
 function wink(/*int*/ num) {
     var paths = [];
     
@@ -680,6 +702,7 @@ function init() {
     gestures.push(wink(i++));
     gestures.push(alien(i++));
     gestures.push(square(i++));
+    gestures.push(hugs(i++));
     gestures.push(love(i++));
     gestures.push(snake(i++));
     gestures.push(vulcan(i++));
