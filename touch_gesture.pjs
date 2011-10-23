@@ -640,23 +640,24 @@ function onMouseUp(event) {
  * This function initializes our script.
  */
 function init() {
+    var i = 0;
     gestures.push(swipe(''));
-    gestures.push(zoom(1));
-    gestures.push(pinch(2));
-    gestures.push(scroll(3));
-    gestures.push(rotate(4));
-    gestures.push(snake(5));
-    gestures.push(happy(6));
-    gestures.push(sad(7));
-    gestures.push(wink(8));
-    gestures.push(alien(9));
-    gestures.push(square(10));
-    gestures.push(love(11));
-    gestures.push(infinity(12));
-    gestures.push(glasses(13));
-    gestures.push(jump(14));
-    gestures.push(doubleJump(15));
-    gestures.push(swan(16));
+    gestures.push(zoom(i++));
+    gestures.push(pinch(i++));
+    gestures.push(scroll(i++));
+    gestures.push(rotate(i++));
+    gestures.push(happy(i++));
+    gestures.push(sad(i++));
+    gestures.push(wink(i++));
+    gestures.push(alien(i++));
+    gestures.push(square(i++));
+    gestures.push(love(i++));
+    gestures.push(snake(i++));
+    gestures.push(infinity(i++));
+    gestures.push(glasses(i++));
+    gestures.push(jump(i++));
+    gestures.push(doubleJump(i++));
+    gestures.push(swan(i++));
     
     gesture = gestures[0];
     gesture.draw();
