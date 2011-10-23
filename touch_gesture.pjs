@@ -163,6 +163,40 @@ function pinch(/*int*/ num) {
     return g;
 }
 
+function blowUp(/*int*/ num) {
+    var paths = [];
+    
+    var path = new Path();
+    path.add(new Point(130, 140));
+    path.add(new Point(100, 50));
+    paths.push(path);
+    
+    path = new Path();
+    path.add(new Point(170, 140));
+    path.add(new Point(200, 50));
+    paths.push(path);
+    
+    path = new Path();
+    path.add(new Point(170, 160));
+    path.add(new Point(250, 150));
+    paths.push(path);
+    
+    path = new Path();
+    path.add(new Point(130, 160));
+    path.add(new Point(50, 75));
+    paths.push(path);
+    
+    path = new Path();
+    path.add(new Point(150, 180));
+    path.add(new Point(100, 275));
+    paths.push(path);
+    
+    var g = new Gesture(num);
+    g.create(paths, new Point(225, 225), "Blowin' Up");
+    
+    return g;
+}
+
 function vulcan(/*int*/ num) {
     var paths = [];
     
@@ -674,7 +708,7 @@ function snake(/*int*/ num) {
     paths.push(path);
     
     var g = new Gesture(num);
-    g.create(paths, new Point(150, 100), "Snake");
+    g.create(paths, new Point(150, 115), "Snake");
     
     return g;
 }
@@ -711,6 +745,7 @@ function init() {
     gestures.push(hugs(i++));
     gestures.push(love(i++));
     gestures.push(vulcan(i++));
+    gestures.push(blowUp(i++));
     gestures.push(snake(i++));
     gestures.push(infinity(i++));
     gestures.push(glasses(i++));
