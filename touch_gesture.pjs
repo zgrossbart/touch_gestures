@@ -648,7 +648,7 @@ function love(/*int*/ num) {
     paths.push(path);
     
     var g = new Gesture(num);
-    g.create(paths, new Point(150, 100), "Love");
+    g.create(paths, new Point(150, 125), "Love");
     
     return g;
 }

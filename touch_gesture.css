@@ -1,13 +1,20 @@
 body {
-    background: #fff;
+    background: #E9E7E0;
     color: #000;
     font-size: 16px;
     line-height: 24px;
     font-family: "ff-basic-gothic-web-pro", Verdana,Arial,Sans-serif;
 }
 
+h1 {
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 36px;
+}
+
 a, a:link, a:visited {
     text-decoration: none;
+    color: blue;
 }
 
 a:hover {
@@ -18,6 +25,9 @@ a:hover {
     background: #F8F8F8;
     border: thin solid #E9E9E9;
     border-radius: 12px;
+    position: relative;
+    left: 50px;
+    margin-top: 28px;
 }
 
 #nocanvas {
@@ -36,7 +46,14 @@ a:hover {
 
 #container {
     position: relative;
-    width: 800px;
+    width: 400px;
+    margin: 0 auto;
+    border-right: thin solid lightgray;
+    border-left: thin solid lightgray;
+    padding: 25px;
+    background: white;
+    top: -10px;
+    height: 800px;
 }
 
 #expl {
@@ -120,6 +137,7 @@ a:hover {
 #controls {
     position: relative;
     width: 300px;
+    left: 50px;
 }
 
 #replay {
