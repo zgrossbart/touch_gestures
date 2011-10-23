@@ -640,7 +640,7 @@ function onMouseUp(event) {
  * This function initializes our script.
  */
 function init() {
-    var i = 0;
+    var i = 1;
     gestures.push(swipe(''));
     gestures.push(zoom(i++));
     gestures.push(pinch(i++));
