@@ -163,6 +163,35 @@ function pinch(/*int*/ num) {
     return g;
 }
 
+function vulcan(/*int*/ num) {
+    var paths = [];
+    
+    var path = new Path();
+    path.add(new Point(100, 75));
+    path.add(new Point(25, 75));
+    paths.push(path);
+    
+    path = new Path();
+    path.add(new Point(140, 75));
+    path.add(new Point(65, 75));
+    paths.push(path);
+    
+    path = new Path();
+    path.add(new Point(200, 75));
+    path.add(new Point(275, 75));
+    paths.push(path);
+    
+    var path = new Path();
+    path.add(new Point(160, 75));
+    path.add(new Point(235, 75));
+    paths.push(path);
+    
+    var g = new Gesture(num);
+    g.create(paths, new Point(150, 150), "Vulcan Salute");
+    
+    return g;
+}
+
 function swipe(/*int*/ num) {
     var paths = [];
     
@@ -653,6 +682,7 @@ function init() {
     gestures.push(square(i++));
     gestures.push(love(i++));
     gestures.push(snake(i++));
+    gestures.push(vulcan(i++));
     gestures.push(infinity(i++));
     gestures.push(glasses(i++));
     gestures.push(jump(i++));
