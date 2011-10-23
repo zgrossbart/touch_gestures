@@ -26,7 +26,7 @@ var gestures = [];
 var gesture;
 var gIndex = 0;
 
-function Gesture() {
+function Gesture(/*int*/ num) {
     this.starts = [];
     this.paths = [];
     this.pathsDrawn = [];
@@ -45,7 +45,7 @@ function Gesture() {
             this.pathsDrawn[i].dashArray = [8, 10];
             
             this.starts.push(createDot(this.paths[i].getPointAt(0)));
-            this.starts[i].opacity = 0;
+            this.starts[i].visible = false;
             
             if (this.longPath == null || this.longPath.length < this.paths[i].length) {
                 this.longPath = this.paths[i];
@@ -60,14 +60,25 @@ function Gesture() {
             font: 'sans'
         };
         this.text.paragraphStyle.justification = 'center';
-        this.text.opacity = 0;
+        this.text.visible = false;
+        
+        this.num = new PointText(290, 290);
+        this.num.content = '' + num;
+        this.num.paragraphStyle.justification = 'right';
+        this.num.characterStyle =  {
+            fontSize: 18,
+            fillColor: 'black',
+            font: 'sans'
+        };
+        this.num.visible = false;
     }
     
     this.draw = function() {
         if (!this.hasPlayed) {
             this.hasPlayed = true;
             for (var i = 0; i < this.paths.length; i++) {
-                this.starts[i].opacity = 1;
+                this.starts[i].visible = true;
+                this.num.visible = true;
             }
         } else {
             this.replay();
@@ -76,11 +87,12 @@ function Gesture() {
     
     this.hide = function() {
         for (var i = 0; i < this.paths.length; i++) {
-            this.starts[i].opacity = 0;
+            this.starts[i].visible = false;
             this.pathsDrawn[i].visible = false;
         }
         
-        this.text.opacity = 0;
+        this.text.visible = false;
+        this.num.visible = false;
     }
     
     this.replay = function() {
@@ -93,14 +105,15 @@ function Gesture() {
             this.pathsDrawn[i].strokeCap = 'round';
             this.pathsDrawn[i].dashArray = [8, 10];
             
-            this.starts[i].opacity = 1;
+            this.starts[i].visible = true;
             this.starts[i].position = this.paths[i].getPointAt(0);
             
             this.pathsDrawn[i].moveBelow(this.starts[i]);
         }
         
-        this.text.opacity = 0;
+        this.text.visible = false;
         this.index = 0;
+        this.num.visible = true;
     }
     
     this.bump = function() {
@@ -115,8 +128,8 @@ function Gesture() {
             }
         } 
         
-        if (this.index >= this.longPath.length && this.text.opacity < 1) {
-            this.text.opacity = 1;
+        if (this.index >= this.longPath.length && !this.text.visible) {
+            this.text.visible = true;
         }
     }
 }
@@ -131,7 +144,7 @@ function createDot(/*Point*/ point) {
     return dot;
 }
 
-function pinch() {
+function pinch(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -144,13 +157,13 @@ function pinch() {
     path.add(new Point(150, 150));
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, 50, "Pinch");
     
     return g;
 }
 
-function swipe() {
+function swipe(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -158,13 +171,13 @@ function swipe() {
     path.add(new Point(50, 50));
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, new Point(150, 150), "Swipe");
     
     return g;
 }
 
-function square() {
+function square(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -181,13 +194,13 @@ function square() {
     path.add(new Point(150, 250));
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, new Point(150, 150), "You Are Square");
     
     return g;
 }
 
-function zoom() {
+function zoom(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -200,13 +213,13 @@ function zoom() {
     path.add(new Point(25, 275));
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, 50, "Zoom");
     
     return g;
 }
 
-function scroll() {
+function scroll(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -219,13 +232,13 @@ function scroll() {
     path.add(new Point(250, 250));
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, new Point(150, 150), "Scroll");
     
     return g;
 }
 
-function rotate() {
+function rotate(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -246,13 +259,13 @@ function rotate() {
     path.arcTo(throughPoint, toPoint);
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, new Point(150, 150), "Rotate");
     
     return g;
 }
 
-function alien() {
+function alien(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -279,13 +292,13 @@ function alien() {
     path.arcTo(throughPoint, toPoint);
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, new Point(150, 150), "Alien");
     
     return g;
 }
 
-function happy() {
+function happy(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -307,13 +320,13 @@ function happy() {
     path.arcTo(throughPoint, toPoint);
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, new Point(150, 150), "Happy");
     
     return g;
 }
 
-function wink() {
+function wink(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -335,13 +348,13 @@ function wink() {
     path.arcTo(throughPoint, toPoint);
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, new Point(150, 150), "Wink");
     
     return g;
 }
 
-function sad() {
+function sad(num) {
     var paths = [];
     
     var path = new Path();
@@ -363,13 +376,13 @@ function sad() {
     path.arcTo(throughPoint, toPoint);
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, new Point(150, 150), "Sad");
     
     return g;
 }
 
-function infinity() {
+function infinity(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -405,13 +418,13 @@ function infinity() {
     path.arcTo(throughPoint, toPoint);
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, new Point(150, 50), "Infinity");
     
     return g;
 }
 
-function swan() {
+function swan(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -442,13 +455,13 @@ function swan() {
     
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, new Point(100, 150), "Swan Dive");
     
     return g;
 }
 
-function jump() {
+function jump(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -461,13 +474,13 @@ function jump() {
     
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(/*int*/ num);
     g.create(paths, new Point(100, 150), "Jump");
     
     return g;
 }
 
-function doubleJump() {
+function doubleJump(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -487,13 +500,13 @@ function doubleJump() {
     
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, new Point(100, 150), "Double Jump");
     
     return g;
 }
 
-function glasses() {
+function glasses(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -538,13 +551,13 @@ function glasses() {
     path.arcTo(throughPoint, toPoint);
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, new Point(150, 50), "Glasses");
     
     return g;
 }
 
-function love() {
+function love(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -583,13 +596,13 @@ function love() {
     path.arcTo(throughPoint, toPoint);
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, new Point(150, 100), "Love");
     
     return g;
 }
 
-function snake() {
+function snake(/*int*/ num) {
     var paths = [];
     
     var path = new Path();
@@ -609,7 +622,7 @@ function snake() {
     path.arcTo(throughPoint, toPoint);
     paths.push(path);
     
-    var g = new Gesture();
+    var g = new Gesture(num);
     g.create(paths, new Point(150, 100), "Snake");
     
     return g;
@@ -627,23 +640,23 @@ function onMouseUp(event) {
  * This function initializes our script.
  */
 function init() {
-    gestures.push(swipe());
-    gestures.push(zoom());
-    gestures.push(pinch());
-    gestures.push(scroll());
-    gestures.push(rotate());
-    gestures.push(snake());
-    gestures.push(happy());
-    gestures.push(sad());
-    gestures.push(wink());
-    gestures.push(alien());
-    gestures.push(square());
-    gestures.push(love());
-    gestures.push(infinity());
-    gestures.push(glasses());
-    gestures.push(jump());
-    gestures.push(doubleJump());
-    gestures.push(swan());
+    gestures.push(swipe(''));
+    gestures.push(zoom(1));
+    gestures.push(pinch(2));
+    gestures.push(scroll(3));
+    gestures.push(rotate(4));
+    gestures.push(snake(5));
+    gestures.push(happy(6));
+    gestures.push(sad(7));
+    gestures.push(wink(8));
+    gestures.push(alien(9));
+    gestures.push(square(10));
+    gestures.push(love(11));
+    gestures.push(infinity(12));
+    gestures.push(glasses(13));
+    gestures.push(jump(14));
+    gestures.push(doubleJump(15));
+    gestures.push(swan(16));
     
     gesture = gestures[0];
     gesture.draw();
@@ -663,13 +676,17 @@ function init() {
         gesture.replay();
         started = true;
     });
+    
+    setTimeout(function() {
+        started = true;
+    }, 1000);
 }
 
 function next() {
-    gesture.hide();
     gIndex++;
     
     if (gIndex < gestures.length) {
+        gesture.hide();
         gesture = gestures[gIndex];
         gesture.draw();
         started = true;

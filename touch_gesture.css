@@ -7,7 +7,11 @@ body {
 }
 
 a, a:link, a:visited {
-    color: #acdd33;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 #canvas {
@@ -111,4 +115,21 @@ a, a:link, a:visited {
     height: 75px;
     overflow: auto;
     padding: 10px;
+}
+
+#controls {
+    position: relative;
+    width: 300px;
+}
+
+#replay {
+    position: absolute;
+    left: 40%;
+    top: 0px;
+}
+
+#next {
+    position: absolute;
+    right: 0px;
+    top: 0px;
 }
