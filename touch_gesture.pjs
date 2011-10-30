@@ -717,9 +717,6 @@ function rain(/*int*/ num) {
     var paths = [];
     var group = new Group();
     
-    /*
-     * Pointer finger
-     */
     var path = new Path();
     var firstPoint = new Point(50, 50);
     path.add(firstPoint);
@@ -752,117 +749,17 @@ function rain(/*int*/ num) {
     paths.push(path);
     group.addChild(path);
     
-    /*
-     * Middle finger
-     */
-    path = new Path();
-    firstPoint = new Point(125, 50);
-    path.add(firstPoint);
+    group.position.x -= 10;
     
-    throughPoint = new Point(100, 75);
-    toPoint = new Point(125, 100);
-    path.arcTo(throughPoint, toPoint);
-    
-    
-    firstPoint = toPoint;
-    path.add(firstPoint);
-    
-    throughPoint = new Point(150, 125);
-    toPoint = new Point(125, 150);
-    path.arcTo(throughPoint, toPoint);
-    
-    firstPoint = toPoint;
-    path.add(firstPoint);
-    
-    throughPoint = new Point(100, 175);
-    toPoint = new Point(125, 200);
-    path.arcTo(throughPoint, toPoint);
-    
-    firstPoint = toPoint;
-    path.add(firstPoint);
-    
-    throughPoint = new Point(150, 225);
-    toPoint = new Point(125, 250);
-    path.arcTo(throughPoint, toPoint);
-    paths.push(path);
-    group.addChild(path);
-    
-    /*
-     * Ring finger
-     */
-    path = new Path();
-    firstPoint = new Point(200, 50);
-    path.add(firstPoint);
-    
-    throughPoint = new Point(175, 75);
-    toPoint = new Point(200, 100);
-    path.arcTo(throughPoint, toPoint);
-    
-    
-    firstPoint = toPoint;
-    path.add(firstPoint);
-    
-    throughPoint = new Point(225, 125);
-    toPoint = new Point(200, 150);
-    path.arcTo(throughPoint, toPoint);
-    
-    firstPoint = toPoint;
-    path.add(firstPoint);
-    
-    throughPoint = new Point(175, 175);
-    toPoint = new Point(200, 200);
-    path.arcTo(throughPoint, toPoint);
-    
-    firstPoint = toPoint;
-    path.add(firstPoint);
-    
-    throughPoint = new Point(225, 225);
-    toPoint = new Point(200, 250);
-    path.arcTo(throughPoint, toPoint);
-    paths.push(path);
-    group.addChild(path);
-    
-    /*
-     * Ring finger
-     */
-    path = new Path();
-    firstPoint = new Point(275, 50);
-    path.add(firstPoint);
-    
-    throughPoint = new Point(250, 75);
-    toPoint = new Point(275, 100);
-    path.arcTo(throughPoint, toPoint);
-    
-    
-    firstPoint = toPoint;
-    path.add(firstPoint);
-    
-    throughPoint = new Point(300, 125);
-    toPoint = new Point(275, 150);
-    path.arcTo(throughPoint, toPoint);
-    
-    firstPoint = toPoint;
-    path.add(firstPoint);
-    
-    throughPoint = new Point(250, 175);
-    toPoint = new Point(275, 200);
-    path.arcTo(throughPoint, toPoint);
-    
-    firstPoint = toPoint;
-    path.add(firstPoint);
-    
-    throughPoint = new Point(300, 225);
-    toPoint = new Point(275, 250);
-    path.arcTo(throughPoint, toPoint);
-    paths.push(path);
-    group.addChild(path);
-    
-    group.position = new Point(group.position.x - 10, group.position.y);
-    
+    for (var i = 0; i < 3; i++) {
+        
+        path = path.clone();
+        path.position.x += 75;
+        paths.push(path);
+    }
     
     var g = new Gesture(num);
     g.create(paths, new Point(150, 25), "Rain");
-    
     return g;
 }
 
