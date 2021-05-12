@@ -1,4 +1,4 @@
 Touch Gestures
 ==================================================
 
-Try it out: [zgrossbart.github.com/touch_gestures](http://zgrossbart.github.com/touch_gestures)
+Try it out: [zgrossbart.github.io/touch_gestures](http://zgrossbart.github.io/touch_gestures)
